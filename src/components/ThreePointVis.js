@@ -1,8 +1,8 @@
 import React, {Suspense, useRef} from 'react';
 import {Canvas, useFrame, useLoader, useThree} from 'react-three-fiber';
 import Controls from './Controls';
-import custom from "../assets/custom.asc";
-import threeDs from "../assets/Cottage_FREE.3DS";
+import custom from './assets/417231.asc';
+
 import {FileLoader} from "three";
 
 const CameraControls = () => {
@@ -31,12 +31,9 @@ const CameraControls = () => {
     );
 };
 
-const ThreePointVis = ({data}) => {
-    let array = [];
+const ThreePointVis = () => {
     const group = useRef(null);
-    // const newArray = [{0: "1.0000", 1: "6", 2: "112.3710", 3: "-15918817"},{0: "1.0000", 1: "6", 2: "110.8057", 3: "-15787230"},{0: "2.0000", 1: "6", 2: "120.8186", 3: "-16512501"},{0: "2.0000", 1: "6", 2: "118.9457", 3: "-16181989"}]
 
-    //const loader = new FileLoader();
     const points = useLoader(FileLoader, custom);
     const newArray = [];
         const basicArray = points.split('\n');
@@ -46,10 +43,6 @@ const ThreePointVis = ({data}) => {
             newArray.push({...basicArray[i].split(" ")})
         }
 
-    // loader.load(custom, points => {
-    //
-    // });
-    console.log(newArray)
     return (
         <Canvas camera={{position: [0, 605, 113]}}>
                 <Controls/>

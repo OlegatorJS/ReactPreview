@@ -6,9 +6,6 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls.js';
 import {PCDLoader} from 'three/examples/jsm/loaders/PCDLoader.js';
 
-import custom from "../assets/416989.asc";
-import {FileLoader} from "three";
-
 const CustomModel = () => {
 
     let container, stats;

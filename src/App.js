@@ -1,4 +1,4 @@
-import React, {Suspense, useRef, useState} from "react";
+import React, {Suspense, useRef} from "react";
 import {
     Canvas,
     useLoader,
@@ -8,17 +8,13 @@ import {
 } from "react-three-fiber";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import "./App.css";
-import threeDs from './assets/582706_rendering.obj';
-import testAsc from './assets/416989.asc';
-import custom from './assets/custom.pcd';
-import {FileLoader} from "three";
-import {TDSLoader} from "three/examples/jsm/loaders/TDSLoader";
-import CustomModel from "./components/customModel";
-import ThreePointVis from "./components/ThreePointVis";
+import threeDs from './components/assets/r69-portrait.obj';
+import testTexture from "./components/assets/texture.jpg";
 import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
+import {TextureLoader} from "three";
+import portrait from "./components/assets/582706_rendering.obj"
 
 extend({OrbitControls});
-let test = [];
 
 function Loading() {
     return (
@@ -38,24 +34,24 @@ function Loading() {
 
 function Scene() {
     const group = useRef(null);
-    const texture = useRef([]);
+    const group2 = useRef(null);
+    const texture = useLoader(TextureLoader, testTexture);
 
-    const points = useLoader(OBJLoader, threeDs)
-    const loader = new FileLoader();
-    const newArray = [];
+    const points = useLoader(OBJLoader, threeDs);
+    const newArray = useLoader(OBJLoader, portrait);
 
     console.log(points)
     return (
-        <mesh position={[0, 0, 1]} rotation={[0, 0, 0]} ref={group}>
-            <primitive object={points} ref={group}/>
-            {/*<bufferGeometry>*/}
-            {/*    <bufferAttribute*/}
-            {/*        attachObject={['attributes', 'position']}*/}
-            {/*        // count={vertices.length / 3}*/}
-            {/*        // array={vertices}*/}
-            {/*        itemSize={3} />*/}
-            {/*</bufferGeometry>*/}
-        </mesh>
+            <lineSegments position={[0, 0, 0]} rotation={[0, 0, 0]} ref={group}>
+                {/*<primitive object={points} ref={group}/>*/}
+                <bufferGeometry>
+                    <bufferAttribute
+                        attachObject={['attributes', 'position']}
+                        count={points.children[0].geometry.attributes.position.count}
+                        array={points.children[0].geometry.attributes.position.array}
+                        itemSize={3}/>
+                </bufferGeometry>
+            </lineSegments>
     )
 }
 
@@ -68,7 +64,7 @@ const CameraControls = () => {
         camera,
         gl: {domElement}
     } = useThree();
-
+    camera.position.z = 10;
     // Ref to the controls, so that we can update them on every frame using useFrame
     const controls = useRef();
     useFrame(() => controls.current.update());
@@ -86,6 +82,7 @@ const CameraControls = () => {
 };
 
 export default function App() {
+    const newArray = useLoader(OBJLoader, portrait);
     return (
         // <div className="App">
         //     <div className="vis-container">
@@ -95,14 +92,18 @@ export default function App() {
         //     </div>
         // </div>
         <div className="App">
-        <Canvas>
-            <CameraControls/>
-            <ambientLight intensity={0.5} />
-            <spotLight intensity={0.8} position={[300, 300, 400]} />
-            <Suspense fallback={<Loading/>}>
-                <Scene/>
-            </Suspense>
-        </Canvas>
+            <Canvas>
+                <CameraControls/>
+                <ambientLight intensity={0.5}/>
+                <spotLight intensity={0.8} position={[300, 300, 400]}/>
+                <Suspense fallback={<Loading/>}>
+                    <Scene/>
+
+                </Suspense>
+                <Suspense fallback={<Loading/>}>
+                <primitive object={newArray}/>
+                </Suspense>
+            </Canvas>
         </div>
         // <CustomModel/>
     );
