@@ -35,6 +35,7 @@ const Shape = () => {
         opacity: 0.05,
         polygonOffset: true,
         polygonOffsetFactor: -0.1,
+        color: "#fff"
     });
 
     const geomShape = new THREE.ExtrudeBufferGeometry(new THREE.Shape(coordinatesList), extrudeSettings);
@@ -42,10 +43,6 @@ const Shape = () => {
         <group ref={group} dispose={null}>
             <mesh geometry={geomShape} material={material} position={[0, 0, -15]}/>
         </group>
-        // <lineSegments position={[0, 0, 0]} rotation={[0, 0, 0]} ref={group}>
-        //     <edgesGeometry attach="geometry" args={points.children[0].geometry}/>
-        //     <lineBasicMaterial color="red" attach="material"/>
-        // </lineSegments>
     )
 }
 
