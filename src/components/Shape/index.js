@@ -2,7 +2,7 @@ import React, {useRef} from "react";
 import * as THREE from "three";
 import {useLoader, useUpdate, } from "react-three-fiber";
 import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
-import rectangle from '../../assets/r199-landscape.obj';
+import rectangle from '../../assets/r69-portrait.obj';
 import {TextureLoader} from "three";
 
 const Shape = () => {
