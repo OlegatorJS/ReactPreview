@@ -1,18 +1,14 @@
 import React, {useRef} from "react";
-import {useFrame, useLoader, useThree} from "react-three-fiber";
-import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
-import portraitObj from "../../assets/582706_rendering.obj";
+import {useThree} from "react-three-fiber";
 import * as THREE from "three";
 
-const Portrait = () => {
+const Portrait = ({object, updateData}) => {
+
     const group = useRef(null);
-    const portrait = useLoader(OBJLoader, portraitObj);
     const {camera} = useThree();
     camera.position.z = 120;
-    camera.near = 100;
+    camera.near = 50;
     camera.aspect = window.innerWidth / window.innerHeight;
-    console.log(camera)
-
     const material = new THREE.MeshBasicMaterial({
         side: THREE.DoubleSide,
         polygonOffset: true,
@@ -22,7 +18,7 @@ const Portrait = () => {
 
     return (
         <group ref={group} dispose={null}>
-            <mesh geometry={portrait.children[0].geometry} material={material} ref={group}/>
+             <mesh geometry={object.children[0].geometry} material={material} ref={group}/>
         </group>
     )
 }

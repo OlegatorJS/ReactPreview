@@ -18,7 +18,7 @@ const CameraControls = () => {
             enableZoom={true}
             maxPolarAngle={Math.PI * 0.5}
             minPolarAngle={0}
-            minDistance={80}
+            minDistance={100}
             maxDistance={200}
         />
     );

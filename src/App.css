@@ -1,9 +1,12 @@
 body {
-  background-color: #000;
+  background-image:url(https://i2.wp.com/rsc68tambov.ru/wp-content/uploads/2018/02/415329-gradient-background-turquoise.jpg);
 }
 
 .App {
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*.vis-container {*/
